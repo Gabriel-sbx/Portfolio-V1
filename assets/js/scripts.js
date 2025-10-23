@@ -161,7 +161,49 @@
 		/*END Testimonials*/
 		
 		/* WOW */
-		new WOW().init();	
+		new WOW().init();
 		
+		
+
+
+
+  $(document).ready(function($) {
+
+    /* Active Menu */
+    $(".mobile_menu").simpleMobileMenu({
+      "menuStyle": "slide",
+      "onMenuLoad": function() {
+
+        // Quand le menu est chargé, on attache notre écouteur
+        $(document).on('click', '.sm_menu_outer a', function(e) {
+          var target = $(this).attr('href');
+
+          // Si c’est un lien d’ancre sur la même page
+          if (target && target.startsWith('#')) {
+            e.preventDefault();
+
+            // Fermer le menu mobile
+            $('#sm_menu_ham').removeClass('open');
+            $('.sm_menu_outer').removeClass('active');
+            $('body').removeClass('mmactive');
+
+            // Scroll fluide après la fermeture
+            setTimeout(function() {
+              var $target = $(target);
+              if ($target.length) {
+                $('html, body').animate({
+                  scrollTop: $target.offset().top - 60 // ajuste selon ta navbar
+                }, 200);
+              }
+            }, 100);
+          }
+        });
+      }
+    });
+
+  });
+
+
+
 })(jQuery);
 
